@@ -32,7 +32,7 @@ const datosBuqueda = {
 //Envent
 
 document.addEventListener('DOMContentLoaded', () => {
-    mostarAutos(); //muestra los autos al cargar
+    mostarAutos(autos); //muestra los autos al cargar
 
     //llenar las opciones de anos
     llenarSelect();
@@ -72,7 +72,8 @@ color.addEventListener('change', e => {
 
 //Function
 
-function mostarAutos() {
+function mostarAutos(autos) {
+    limpiarHTML()
     autos.forEach(auto => {
 
         const {marca,modelo,year,precio,color,puesta,transmision} = auto;
@@ -91,6 +92,13 @@ function mostarAutos() {
     });
 }
 
+function limpiarHTML() {
+    while(resultado.firstChild) {
+        resultado.removeChild(resultado.firstChild);
+    }
+
+}
+
 function llenarSelect() {
     for(let i = max; i >= min; i--) {
         const opcion = document.createElement('option');
@@ -103,7 +111,9 @@ function llenarSelect() {
 function filtraAutos() {
     const resultado = autos.filter( filtraMarca ).filter(filtrarYear)
 
-    console.log(resultado);
+    // console.log(resultado);
+
+    mostarAutos(resultado);
     
 }
 

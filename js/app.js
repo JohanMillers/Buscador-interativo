@@ -27,8 +27,6 @@ const datosBuqueda = {
 
 }
 
-
-
 //Envent
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -73,8 +71,6 @@ transmision.addEventListener('change', e => {
 });
 color.addEventListener('change', e => {
     datosBuqueda.color = e.target.value;
-    console.log(datosBuqueda);
-
     filtraAutos();
 })
 
@@ -120,8 +116,22 @@ function llenarSelect() {
 function filtraAutos() {
     const resultado = autos.filter( filtraMarca ).filter(filtrarYear).filter( filtrarMinimo ).filter( filtrarMaximo ).filter( filtrarPuertas ).filter( filtrarTransmision ).filter( filtrarColor )
 
-    mostarAutos(resultado);
-    
+    if(resultado.length ) {
+        mostarAutos(resultado);
+    }else {
+        noResultado();
+    }
+}
+
+function noResultado() {
+
+    limpiarHTML();
+
+    const noResultado = document.createElement('div');
+    noResultado.classList.add('alerta','error', 'mb-5');
+    noResultado.textContent = 'No Hay Resultado, Intenta con otros termino de busqueda';
+    resultado.appendChild(noResultado);
+
 }
 
 function filtraMarca(auto) {
